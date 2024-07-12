@@ -92,7 +92,7 @@ func (m *Message) MarshalJSONIndent() ([]byte, error) {
 // MarshalJSONPB serializes this message to bytes in JSON format, returning an
 // error if the operation fails. The resulting bytes will be a valid UTF8
 // string. The given marshaler is used to convey options used during marshaling.
-//
+/
 // If this message contains nested messages that are generated message types (as
 // opposed to dynamic messages), the given marshaler is used to marshal it.
 //
@@ -383,7 +383,9 @@ func marshalKnownFieldValueJSON(b *indentBuffer, fd *desc.FieldDescriptor, v int
 	rv := reflect.ValueOf(v)
 	switch rv.Kind() {
 	case reflect.Int64:
-		return writeJsonString(b, strconv.FormatInt(rv.Int(), 10))
+		// return writeJsonString(b, strconv.FormatInt(rv.Int(), 10))
+		_, err := b.WriteString(strconv.FormatInt(rv.Int(), 10))
+		return err
 	case reflect.Int32:
 		ed := fd.GetEnumType()
 		if !opts.EnumsAsInts && ed != nil {
@@ -420,7 +422,7 @@ func marshalKnownFieldValueJSON(b *indentBuffer, fd *desc.FieldDescriptor, v int
 			} else {
 				bits = 64
 			}
-			str = strconv.FormatFloat(rv.Float(), 'g', -1, bits)
+			str = strconv.FormatFloat(rv.Float(), 'f', -1, bits)
 		}
 		_, err := b.WriteString(str)
 		return err
