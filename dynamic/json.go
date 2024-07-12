@@ -18,6 +18,7 @@ import (
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
+
 	// link in the well-known-types that have a special JSON format
 	_ "google.golang.org/protobuf/types/known/anypb"
 	_ "google.golang.org/protobuf/types/known/durationpb"
@@ -92,7 +93,7 @@ func (m *Message) MarshalJSONIndent() ([]byte, error) {
 // MarshalJSONPB serializes this message to bytes in JSON format, returning an
 // error if the operation fails. The resulting bytes will be a valid UTF8
 // string. The given marshaler is used to convey options used during marshaling.
-/
+//
 // If this message contains nested messages that are generated message types (as
 // opposed to dynamic messages), the given marshaler is used to marshal it.
 //
